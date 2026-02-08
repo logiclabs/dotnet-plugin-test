@@ -1,0 +1,5 @@
+{
+  "enabledPlugins": {
+    "dotnet-nuget-proxy@dotnet-nuget-proxy": true
+  }
+}
