@@ -1,8 +1,8 @@
 ﻿using Spectre.Console;
 
-// Display a fancy "Hello World" title
+// Display a fancy "Hello Dave" title
 AnsiConsole.Write(
-    new FigletText("Hello World!")
+    new FigletText("Hello Dave!")
         .Centered()
         .Color(Color.Green));
 
