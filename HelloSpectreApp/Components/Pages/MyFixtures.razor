@@ -1,0 +1,65 @@
+@page "/my-fixtures"
+@rendermode InteractiveServer
+
+<h1>My Games on My Fixtures</h1>
+
+<div class="filter-bar">
+    <button class="filter-btn @(activeFilter == Filter.All ? "active" : "")"
+            @onclick="() => SetFilter(Filter.All)">
+        All Games
+    </button>
+    <button class="filter-btn @(activeFilter == Filter.Home ? "active" : "")"
+            @onclick="() => SetFilter(Filter.Home)">
+        Home Games
+    </button>
+    <button class="filter-btn @(activeFilter == Filter.Away ? "active" : "")"
+            @onclick="() => SetFilter(Filter.Away)">
+        Away Games
+    </button>
+</div>
+
+@if (!filteredFixtures.Any())
+{
+    <p class="no-results">No @activeFilter.ToString().ToLower() games scheduled.</p>
+}
+else
+{
+    <div class="fixtures-list">
+        @foreach (var fixture in filteredFixtures)
+        {
+            <div class="fixture-card @(fixture.IsHome ? "home" : "away")">
+                <span class="fixture-badge">@(fixture.IsHome ? "HOME" : "AWAY")</span>
+                <div class="fixture-details">
+                    <strong>@fixture.Opponent</strong>
+                    <span class="fixture-date">@fixture.Date.ToString("ddd d MMM yyyy, HH:mm")</span>
+                    <span class="fixture-venue">@fixture.Venue</span>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    private enum Filter { All, Home, Away }
+    private Filter activeFilter = Filter.All;
+
+    private record Fixture(string Opponent, DateTime Date, string Venue, bool IsHome);
+
+    private List<Fixture> allFixtures = new()
+    {
+        new("FC United",   new DateTime(2026, 3, 1, 15, 0, 0),  "Home Stadium",    true),
+        new("City FC",     new DateTime(2026, 3, 8, 17, 30, 0), "City Arena",       false),
+        new("Rovers",      new DateTime(2026, 3, 15, 15, 0, 0), "Home Stadium",    true),
+        new("Athletic FC", new DateTime(2026, 3, 22, 12, 30, 0),"Athletic Ground", false),
+        new("Town United", new DateTime(2026, 4, 5, 15, 0, 0),  "Home Stadium",    true),
+    };
+
+    private IEnumerable<Fixture> filteredFixtures => activeFilter switch
+    {
+        Filter.Home => allFixtures.Where(f => f.IsHome),
+        Filter.Away => allFixtures.Where(f => !f.IsHome),
+        _           => allFixtures
+    };
+
+    private void SetFilter(Filter filter) => activeFilter = filter;
+}

@@ -1,0 +1,287 @@
+/* Reset & base */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    color: #1a1a2e;
+    background: #f5f5f5;
+}
+
+/* Page layout */
+.page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ─── Top bar / Navigation ─── */
+.top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    background: #16213e;
+    color: #fff;
+    padding: 0 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.top-bar-brand a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.25rem;
+    font-weight: 700;
+    padding: 0.75rem 0;
+    display: block;
+}
+
+/* Hamburger toggle — visible only on mobile */
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.75rem 0;
+}
+
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+    display: block;
+    width: 24px;
+    height: 3px;
+    background: #fff;
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+    position: relative;
+}
+
+.hamburger::before,
+.hamburger::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 24px;
+}
+
+.hamburger::before { top: -7px; }
+.hamburger::after  { top:  7px; }
+
+/* Animate to X when open */
+.hamburger.open {
+    background: transparent;
+}
+.hamburger.open::before {
+    top: 0;
+    transform: rotate(45deg);
+}
+.hamburger.open::after {
+    top: 0;
+    transform: rotate(-45deg);
+}
+
+/* Nav menu — row on desktop */
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    transition: background 0.2s, color 0.2s;
+    white-space: nowrap;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.nav-link.active {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    font-weight: 600;
+}
+
+/* ─── Mobile breakpoint ─── */
+@media (max-width: 768px) {
+    .nav-toggle {
+        display: block;
+    }
+
+    .nav-menu {
+        /* Hidden by default on mobile */
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        padding-bottom: 0.5rem;
+    }
+
+    .nav-menu.open {
+        display: flex;
+    }
+
+    .nav-link {
+        width: 100%;
+        padding: 0.85rem 1rem;
+        border-radius: 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+}
+
+/* ─── Content area ─── */
+.content {
+    flex: 1;
+    padding: 2rem 1rem;
+    max-width: 960px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+h1 {
+    color: #16213e;
+    margin-bottom: 1rem;
+}
+
+/* Welcome panel (mirrors old Spectre panel) */
+.welcome-panel {
+    background: #fff;
+    border: 2px solid #3a86ff;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.welcome-panel h2 {
+    color: #3a86ff;
+    margin-bottom: 0.75rem;
+}
+
+.welcome-panel .dim {
+    color: #888;
+}
+
+.success-message {
+    color: #2ecc71;
+    font-weight: 600;
+}
+
+/* ─── Filter bar ─── */
+.filter-bar {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 0.5rem 1.25rem;
+    border: 2px solid #16213e;
+    background: #fff;
+    color: #16213e;
+    border-radius: 24px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.filter-btn:hover {
+    background: #e8edf5;
+}
+
+.filter-btn.active {
+    background: #16213e;
+    color: #fff;
+}
+
+/* ─── Fixture cards ─── */
+.fixtures-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.fixture-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: #fff;
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    border-left: 5px solid #ccc;
+}
+
+.fixture-card.home {
+    border-left-color: #2ecc71;
+}
+
+.fixture-card.away {
+    border-left-color: #3a86ff;
+}
+
+.fixture-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    min-width: 52px;
+    text-align: center;
+}
+
+.fixture-card.home .fixture-badge {
+    background: #d4f5e2;
+    color: #1a7a42;
+}
+
+.fixture-card.away .fixture-badge {
+    background: #d6e6ff;
+    color: #1a4fa0;
+}
+
+.fixture-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.fixture-date {
+    font-size: 0.85rem;
+    color: #555;
+}
+
+.fixture-venue {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.no-results {
+    color: #888;
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .filter-bar {
+        gap: 0.35rem;
+    }
+
+    .filter-btn {
+        flex: 1;
+        text-align: center;
+        padding: 0.5rem 0.5rem;
+        font-size: 0.8rem;
+    }
+}

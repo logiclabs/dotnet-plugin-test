@@ -1,0 +1,31 @@
+@inherits LayoutComponentBase
+
+<div class="page">
+    <header class="top-bar">
+        <div class="top-bar-brand">
+            <a href="/">HelloSpectreApp</a>
+        </div>
+        <button class="nav-toggle" @onclick="ToggleMenu" aria-label="Toggle navigation">
+            <span class="hamburger @(menuOpen ? "open" : "")"></span>
+        </button>
+        <nav class="nav-menu @(menuOpen ? "open" : "")">
+            <NavLink class="nav-link" href="/" Match="NavLinkMatch.All" @onclick="CloseMenu">
+                Home
+            </NavLink>
+            <NavLink class="nav-link" href="/my-fixtures" @onclick="CloseMenu">
+                My Games on My Fixtures
+            </NavLink>
+        </nav>
+    </header>
+
+    <main class="content">
+        @Body
+    </main>
+</div>
+
+@code {
+    private bool menuOpen;
+
+    private void ToggleMenu() => menuOpen = !menuOpen;
+    private void CloseMenu() => menuOpen = false;
+}
